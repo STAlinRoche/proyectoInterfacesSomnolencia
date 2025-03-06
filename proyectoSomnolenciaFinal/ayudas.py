@@ -119,7 +119,7 @@ class HelpWindowConfiguracion:
     def __init__(self, master=None):
         self.top = tk.Toplevel(master)
         self.top.title("Ayuda: Configuración")
-        self.top.geometry("700x500")  # Tamaño estático
+        self.top.geometry("800x500")  # Tamaño estático
         self.top.configure(bg="#2c3e50")  # Fondo principal suave
 
         # Hacer la ventana no redimensionable

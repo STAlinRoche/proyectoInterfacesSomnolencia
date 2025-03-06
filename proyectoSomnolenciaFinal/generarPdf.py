@@ -14,9 +14,9 @@ def obtener_datos_por_ci(ci):
         )
         cursor = connection.cursor()
 
-        # Consulta SQL para obtener los datos según la cédula, incluyendo la fecha
+        # Consulta SQL para obtener solo los 6 datos necesarios
         query = """
-        SELECT ci, nombre, tiempo_total_ojos_cerrados, parpadeos_totales, porcentaje_ojos_cerrados, comisiones, conclusion, fecha
+        SELECT ci, nombre, porcentaje_ojos_cerrados, t_promedio, conclusion, fecha
         FROM supertabla
         WHERE ci = %s
         """
@@ -51,33 +51,30 @@ def generar_pdf(ci):
     pdf.set_font('Arial', 'B', 12)
     pdf.cell(0, 10, f'Resultados del Test según el CI: {ci}', 0, 1, 'C')
 
+    # Ajustar la posición X para centrar la tabla un poco más a la derecha
+    #pdf.set_x(30)  # Ajusta este valor para mover la tabla más a la derecha o izquierda
+
     # Crear la cabecera de la tabla
     pdf.set_font('Arial', 'B', 10)
-    pdf.cell(30, 10, 'CI', border=1, align='C')
-    pdf.cell(30, 10, 'Nombre', border=1, align='C')
-    pdf.cell(40, 10, 'Tiempo Ojos Cerrados', border=1, align='C')
-    pdf.cell(40, 10, 'Parpadeos Totales', border=1, align='C')
-    pdf.cell(40, 10, 'Porcentaje Ojos Cerrados', border=1, align='C')
-    pdf.cell(30, 10, 'Comisiones', border=1, align='C')
-    pdf.cell(20, 10, 'Fecha', border=1, align='C')  # Incluir columna de fecha
-    pdf.cell(55, 10, 'Conclusion', border=1, align='C')  # Reducir el tamaño de la celda de Conclusion
+    pdf.cell(25, 10, 'CI', border=1, align='C')
+    pdf.cell(20, 10, 'Nombre', border=1, align='C')
+    pdf.cell(50, 10, 'Porcentaje Ojos Cerrados', border=1, align='C')
+    pdf.cell(40, 10, 'Promedio T', border=1, align='C')
+    pdf.cell(30, 10, 'Fecha', border=1, align='C')
+    pdf.cell(80, 10, 'Conclusión', border=1, align='C')
     pdf.ln()
 
     # Rellenar la tabla con los datos
     pdf.set_font('Arial', '', 10)
     for row in datos:
-        pdf.cell(30, 10, str(row[0]), border=1, align='C')
-        pdf.cell(30, 10, row[1], border=1, align='C')
-        pdf.cell(40, 10, str(row[2]), border=1, align='C')
+        pdf.cell(25, 10, str(row[0]), border=1, align='C')
+        pdf.cell(20, 10, row[1], border=1, align='C')
+        pdf.cell(50, 10, str(row[2]), border=1, align='C')
         pdf.cell(40, 10, str(row[3]), border=1, align='C')
-        pdf.cell(40, 10, str(row[4]), border=1, align='C')
-        pdf.cell(30, 10, str(row[5]), border=1, align='C')
-        pdf.cell(20, 10, str(row[7]), border=1, align='C')  # Convertimos la fecha en string
-        pdf.multi_cell(55, 10, row[6], border=1, align='L')  # Alineación a la izquierda para la conclusión
-        pdf.ln()
+        pdf.cell(30, 10, str(row[5]), border=1, align='C')  # Convertimos la fecha en string
+        pdf.multi_cell(80, 10, row[4], border=1, align='L')  # Alineación a la izquierda para la conclusión
 
+        # Evitar usar `ln()` después de `multi_cell()` porque multi_cell maneja el salto de línea
     # Guardar el archivo PDF
     pdf.output(f"resultados_test_CI_{ci}.pdf")
     print(f"PDF generado exitosamente para el CI: {ci}")
-
-

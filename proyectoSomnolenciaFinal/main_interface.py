@@ -84,7 +84,7 @@ class MainInterface:
         # Cargar la imagen y ajustarla con subsample
         test_img = tk.PhotoImage(file="imagenes/test.png").subsample(8, 8)
         
-        self.btn_test = tk.Button(self.frame_menu, text="Test de Somnolencia", image=test_img, padx=10, compound=tk.LEFT, 
+        self.btn_test = tk.Button(self.frame_menu, text="Test de Atencion", image=test_img, padx=10, compound=tk.LEFT, 
                                   command=self.open_sleep_test, **btn_style)
         self.btn_test.image = test_img # Mantener referencia
         self.btn_test.pack(pady=10, fill=tk.X,  ipady=10)
@@ -117,7 +117,7 @@ class MainInterface:
         recomendaciones_img = tk.PhotoImage(file="imagenes/recomendaciones.png").subsample(4, 4)
         
         self.btn_recomendaciones = tk.Button(self.frame_menu, text="Recomendaciones", image=recomendaciones_img, padx=10, compound=tk.LEFT,
-                                        command=self.mostrar_sugerencias, **btn_style, width=235, height=80)
+                                        command=self.mostrar_sugerencias, **btn_style, width=200, height=80)
         self.btn_recomendaciones.image = recomendaciones_img
         self.btn_recomendaciones.place(x=0, y=450)
 

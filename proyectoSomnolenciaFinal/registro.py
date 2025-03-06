@@ -46,9 +46,13 @@ def ingreso_usuario():
     ventana_ingreso.attributes("-fullscreen", True)
     ventana_ingreso.config(bg="#3E4A61")
     
+    #Etiqueta de bienvenida en la ventana
+    etiqueta = tk.Label(ventana_ingreso, text="Por favor ingrese su Identificador y Contraseña", font=("Arial", 30), fg="white", bg="#3E4A61")
+    etiqueta.pack(pady=50)
+    
     # Panel izquierdo (Login)
     frame_login = tk.Frame(ventana_ingreso, bg="#6D8B8E", width=350, height=250, bd=5, relief="ridge")
-    frame_login.place(x=50, y=50)
+    frame_login.place(relx=0.5, rely=0.5, anchor="center", x=-150)  # Centrado del frame
     
     # Contenedor interno para los campos de entrada
     frame_fields = tk.Frame(frame_login, bg="#6D8B8E", width=350, height=300)
@@ -123,8 +127,8 @@ def ingreso_usuario():
     login_button.pack(pady=10)
     
     # Panel derecho (Información adicional)
-    frame_info = tk.Frame(ventana_ingreso, bg="#3E4A61", width=350, height=250)
-    frame_info.place(x=425, y=50)
+    frame_info = tk.Frame(ventana_ingreso, bg="#3E4A61", width=350, height=250, relief="ridge", bd=5)
+    frame_info.place(relx=0.5, rely=0.5, anchor="center", x=250)
 
     tk.Label(frame_info, text="Bienvenido", bg="#3E4A61", fg="white", font=("Arial", 16, "bold")).pack(pady=15)
     tk.Label(frame_info, text="Accede a tu cuenta fácilmente", bg="#3E4A61", fg="white", font=("Arial", 12)).pack()
@@ -145,11 +149,17 @@ def nuevo_usuario():
     ventana_registro.config(bg="#2C3E50")  # Color de fondo oscuro relajante
 
     # Etiqueta en la parte superior
-    etiqueta = tk.Label(ventana_registro, text="Por favor ingrese los siguientes datos para su registro", font=("Arial", 16), fg="white", bg="#2C3E50")
+    etiqueta = tk.Label(ventana_registro, text="Por favor ingrese los siguientes datos para su registro", font=("Arial", 30), fg="white", bg="#2C3E50")
     etiqueta.pack(pady=10)
+    
+    #Indicacion de que solo se aceptan numeros en la cedula y en la contraseña
+    etiqueta2 = tk.Label(ventana_registro, text="Solo se aceptan números en CI y Contraseña", font=("Arial", 14), fg="white", bg="#2C3E50")
+    etiqueta2.pack(pady=10)
 
-    frame_form = tk.Frame(ventana_registro, bg="#34495E")
-    frame_form.pack(pady=15)
+
+    frame_form = tk.Frame(ventana_registro, bg="#34495E", width=500, height=700, bd=5, relief="ridge")
+    #frame_form.pack(pady=15)
+    frame_form.place(relx=0.5, rely=0.5, anchor="center")  # Centrado del frame
 
     def validar_nombre(event):
         if event.char == '\x08':  # Permitir Backspace
@@ -180,7 +190,8 @@ def nuevo_usuario():
             entry_widget.config(fg="gray")
     
     frame_top = tk.Frame(frame_form, bg="#34495E")
-    frame_top.pack()
+    #frame_top.pack()
+    frame_top.grid(row=0, column=0, pady=10)  # Usando grid en lugar de pack
     
     tk.Label(frame_top, text="Nombre:", fg="white", bg="#34495E", font=("Arial", 14)).grid(row=0, column=0, padx=5, pady=5)
     entry_nombre = tk.Entry(frame_top, width=25, bg="black", fg="white", font=("Arial", 14))
@@ -188,6 +199,7 @@ def nuevo_usuario():
     entry_nombre.bind("<FocusIn>", lambda event: on_focus_in(event, "Nombre", entry_nombre))
     entry_nombre.bind("<FocusOut>", lambda event: on_focus_out(event, "Nombre", entry_nombre))
     entry_nombre.bind("<KeyPress>", validar_nombre)
+    #entry_nombre.grid(row=0, column=1, padx=5, pady=5)
     entry_nombre.grid(row=0, column=1, padx=5, pady=5)
     
     tk.Label(frame_top, text="CI:", fg="white", bg="#34495E", font=("Arial", 14)).grid(row=0, column=2, padx=5, pady=5)
@@ -198,9 +210,12 @@ def nuevo_usuario():
     entry_ci.bind("<KeyPress>", validar_ci_contrasena)
     entry_ci.grid(row=0, column=3, padx=5, pady=5)
 
-    tk.Label(frame_form, text="Contraseña:", fg="white", bg="#34495E", font=("Arial", 14)).pack()
+    #tk.Label(frame_form, text="Contraseña:", fg="white", bg="#34495E", font=("Arial", 14)).pack()
+    tk.Label(frame_form, text="Contraseña:", fg="white", bg="#34495E", font=("Arial", 14)).grid(row=1, column=0, columnspan=4, pady=10)
+    
     frame_password = tk.Frame(frame_form, bg="#34495E")
-    frame_password.pack()
+    #frame_password.pack()
+    frame_password.grid(row=2, column=0, columnspan=4, pady=10)
     
     entry_contrasena = tk.Entry(frame_password, width=35, show="*", bg="black", fg="white", font=("Arial", 14))
     entry_contrasena.insert(0, "Contraseña")
@@ -242,7 +257,8 @@ def nuevo_usuario():
         ventana_registro.destroy()
     
     frame_buttons = tk.Frame(frame_form, bg="#34495E")
-    frame_buttons.pack(pady=10)
+    #frame_buttons.pack(pady=10)
+    frame_buttons.grid(row=3, column=0, columnspan=4, pady=10)
     
     boton_guardar = tk.Button(frame_buttons, text="Registrar", command=verificar_campos, bg="#27AE60", fg="white", relief="ridge", font=("Arial", 14))
     boton_guardar.grid(row=0, column=0, padx=5)

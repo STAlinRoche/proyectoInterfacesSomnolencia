@@ -55,6 +55,39 @@ def crear_tabla_supertabla():
             cursor.close()
             conn.close()
 
+
+def crear_tabla_usuarios():
+    """Crea la tabla 'usuarios' en la base de datos Railway."""
+    try:
+        # Establecemos la conexión
+        conn = obtener_conexion()
+        cursor = conn.cursor()
+
+        # Comando SQL para crear la tabla
+        create_table_query = """
+        CREATE TABLE IF NOT EXISTS usuarios (
+            ci VARCHAR(20),
+            nombre VARCHAR(100),
+            contraseña VARCHAR(100)
+        );
+        """
+
+        # Ejecutar la consulta para crear la tabla
+        cursor.execute(create_table_query)
+
+        # Confirmamos la creación de la tabla
+        conn.commit()
+        print("Tabla 'usuarios' creada correctamente en la base de datos.")
+
+    except Exception as error:
+        print(f"Error al crear la tabla en la base de datos: {error}")
+
+    finally:
+        # Cerramos la conexión
+        if conn:
+            cursor.close()
+            conn.close()
+
 # Llamar a la función para crear la tabla
 if __name__ == "__main__":
     crear_tabla_supertabla()

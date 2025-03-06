@@ -78,6 +78,25 @@ class LoginWindow:
                                         bg="black", fg="white", command=nuevo_usuario)
         boton_nuevo_usuario.pack(side="left", padx=5)
         
+        # Cargar la imagen para el botón "Salir"
+        try:
+            imagen_salir = Image.open("imagenes/cerrarSesion.png")  # Asegúrate de que la ruta sea correcta
+            imagen_salir_redimensionada = imagen_salir.resize((50, 50))
+            self.imagen_salir_tk = ImageTk.PhotoImage(imagen_salir_redimensionada)
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo cargar la imagen de salir: {e}")
+            self.imagen_salir_tk = None
+        
+        # Botón para salir
+        boton_salir = tk.Button(self.root, text="Salir", font=("Arial", 10), 
+                                width=215, height=75, image=self.imagen_salir_tk, compound="left", 
+                                bg="black", fg="white", command=self.salirdelPrograma)
+        boton_salir.pack(pady=10)
+        
+    def salirdelPrograma(self):
+        self.root.destroy()
+        messagebox.showinfo("Salir", "Gracias por utilizar el sistema")
+        
     def ingresar(self):
         resultado, usuario_nombre = ingreso_usuario()
         if resultado:

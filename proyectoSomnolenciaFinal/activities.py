@@ -83,8 +83,8 @@ class ActivitiesWindow:
         self.time_left = 300
         self.timer_running = False
         self.activities = [
-            ("Test de Stroop", self.load_stroop_test, 60),
-            ("Test de Reacción", self.load_reaction_test, 60),
+            ("Actividad de Stroop", self.load_stroop_test, 60),
+            ("Actividad de Reacción", self.load_reaction_test, 60),
             ("Lectura de PDF", self.load_pdf_reading, 180)
         ]
         self.current_activity = 0
@@ -299,7 +299,7 @@ class ActivitiesWindow:
         for widget in self.frame_actividades.winfo_children():
             widget.destroy()
 
-        self.display_title("Test de Stroop")
+        self.display_title("Actividad de Stroop")
 
         # Label de la palabra en el centro
         self.stroop_label = tk.Label(self.frame_actividades, font=("Arial", 36, "bold"), bg="#566573")
